@@ -8,7 +8,7 @@ let GetCategory = async (req, res) => {
         return res.status(200).send({
             status: true,
             message: "Categories found",
-            categories,
+            categories, 
         })
     } catch (e) {
         return res.status(400).send({ status: false, message: "Internal server error" })

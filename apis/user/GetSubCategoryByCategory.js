@@ -5,11 +5,10 @@ let GetSubCategoryByCategory = async (req, res) => {
     try {
         let db = await connectDb();
         let collection = db.collection("service_subcategories")
-        let { category_id } = req.params
-        console.log(category_id);
-        ;
-        let subCategoryByCategory = await collection.findOne({ category_id: ObjectId.createFromHexString(category_id) })
-        if (!subCategoryByCategory) {
+        let { category_id } = req.params;
+
+        let subCategoryByCategory = await collection.find({ category_id: new ObjectId(category_id) }).toArray();
+        if (subCategoryByCategory.length === 0) {
             return res.status(400).send({ success: false, message: "SubCategory By category not found" })
         }
         return res.status(200).send({ success: true, message: "Data Found", subCategoryByCategory })

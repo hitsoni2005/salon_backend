@@ -4,10 +4,10 @@ const { connectDb } = require("../../db/connection")
 let ServicesByCategory = async (req, res) => {
     try {
         let db = await connectDb();
-        let collection = (await db).collection("services")
+        let collection = await db.collection("services")
         let { category_id } = req.params;
-        console.log(category_id)
-        let servicesByCategory = await collection.findOne({ category_id: ObjectId.createFromHexString(category_id) })
+        
+        let servicesByCategory = await collection.find({ category_id: new ObjectId(category_id) }).toArray();
         if (!servicesByCategory) {
             return res.status(400).send({ success: false, message: "Service Not Found" })
         }

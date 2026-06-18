@@ -16,7 +16,10 @@ let AuthMiddleWare = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (e) {
-        return res.status(401).send({ success: false, message: "Invalid or expired token" })
+        return res.status(401).send({
+            success: false,
+            message: e.message
+        })
     }
 }
 

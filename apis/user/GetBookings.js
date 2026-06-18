@@ -5,7 +5,7 @@ let GetBookings = async (req, res) => {
     let db = connectDb();
     let collection = (await db).collection("bookings")
     let { user_id } = req.params;
-    let getBookings = await collection.find({ user_id: ObjectId.createFromHexString(user_id) }).toArray();
+    let getBookings = await collection.find({ user_id: new ObjectId(user_id) }).toArray();
     if (!getBookings) {
         return res.status(400).send({ success: false, message: "Bookings Not Found" })
     }
